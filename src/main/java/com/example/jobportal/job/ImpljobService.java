@@ -18,4 +18,16 @@ public class ImpljobService implements jobService {
         job.setId(Nextid++);
      jobs.add(job);
     }
+
+    @Override
+    public jobs getJobByid(Long id) {
+        for(jobs job:jobs)
+        {
+            if(job.getId().equals(id))
+            {
+                return job;
+            }
+        }
+        return null;
+    }
 }

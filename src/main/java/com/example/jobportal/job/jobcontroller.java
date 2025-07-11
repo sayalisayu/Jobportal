@@ -1,10 +1,9 @@
 package com.example.jobportal.job;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +16,25 @@ public class jobcontroller {
     }
     private List<jobs>jobs=new ArrayList<>();
     @GetMapping("/jobs")
-    public List<jobs> findAll()
+    public ResponseEntity<List<jobs>> findAll()
     {
-        return service.findAll();
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
     @PostMapping("/Save")
-    public String Createjob(@RequestBody jobs Jobs)
+    public ResponseEntity<String> Createjob(@RequestBody jobs Jobs)
     {
         service.createjob(Jobs);
-        return "Value save successfully " ;
+        return new ResponseEntity<>("Value save successfully ",HttpStatus.OK) ;
     }
-
+    @GetMapping("/jobs/{id}")
+    public ResponseEntity<jobs> findById(@PathVariable Long id)
+    {     jobs job=service.getJobByid(id);
+        if(job!=null)
+        {
+            return new ResponseEntity<>(job, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
 
     //GET /jobs/{id}:Get a specific job by ID
