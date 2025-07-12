@@ -35,7 +35,24 @@ public class jobcontroller {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
+    @DeleteMapping("DeleteJob/{id}")
+    public ResponseEntity<String> DeleteJob(@PathVariable Long id)
+    {
+        boolean job=service.delete(id);
+        if(job)
+        {
+           return new ResponseEntity<>("Job deleted ", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @PutMapping("UpdateJobs/{id}")
+    public ResponseEntity<String> UpdateJob(@PathVariable Long id,@RequestBody jobs job)
+    {
+        boolean Updatejobs=service.UpdateJob(id,job);
+        if(Updatejobs)
+            return new ResponseEntity<>("Job updated Succesfully ",HttpStatus.OK) ;
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
     //GET /jobs/{id}:Get a specific job by ID
     //POST /jobs:Create a new job(request body should contain the job details)

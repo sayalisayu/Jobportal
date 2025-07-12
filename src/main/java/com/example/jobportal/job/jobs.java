@@ -1,7 +1,12 @@
 package com.example.jobportal.job;
 
-public class jobs {
+import jakarta.persistence.*;
 
+@Entity
+//@Table(name="Job_table")
+public class jobs {
+      @Id
+      @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
@@ -17,6 +22,11 @@ public class jobs {
         this.maxsalary = maxsalary;
         this.location = location;
     }
+
+    public jobs() {
+
+    }
+
     public Long getId() {
         return id;
     }
