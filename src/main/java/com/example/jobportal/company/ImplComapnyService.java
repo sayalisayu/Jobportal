@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ImplComapnyService implements companyservice{
+public class ImplComapnyService implements companyservice {
     @Autowired
     private CompanyRepository companyRepository;
 
@@ -27,8 +27,8 @@ public class ImplComapnyService implements companyservice{
     @Override
     public boolean updatecompany(Long id, company company) {
 
-        Optional<company> Company1 =companyRepository.findById(id);
-        if(Company1.isPresent()) {
+        Optional<company> Company1 = companyRepository.findById(id);
+        if (Company1.isPresent()) {
             company Company12 = Company1.get();
             Company12.setName(company.getName());
             Company12.setDescription(company.getDescription());
@@ -42,12 +42,16 @@ public class ImplComapnyService implements companyservice{
 
     @Override
     public void deleteCompany(Long id) {
-        if(companyRepository.existsById(id)) {
+        if (companyRepository.existsById(id)) {
             companyRepository.deleteById(id);
-        }
-        else{
+        } else {
             System.out.println("Company Not Found");
         }
 
-}
     }
+
+    @Override
+    public company findByCompanyid(Long id) {
+        return companyRepository.findById(id).orElse(null);
+    }
+}

@@ -1,6 +1,8 @@
 package com.example.jobportal.company;
 
+import com.example.jobportal.Review.Reviews;
 import com.example.jobportal.job.jobs;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -8,18 +10,29 @@ import java.util.List;
 public class company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long companyid;
     private String name;
     private String description;
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy="Company")
     private List<jobs> job;
+
+    public void setReviews(List<Reviews> reviews) {
+        this.reviews = reviews;
+    }
+@JsonIgnore
+    @OneToMany(mappedBy = "company")
+    private List<Reviews> reviews;
+
+    public List<Reviews> getReviews() {
+        return reviews;
+    }
+
     public company() {
 
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -33,9 +46,7 @@ public class company {
         this.job = job;
     }
 
-    public Long getId() {
-        return id;
-    }
+
 
     public String getName() {
         return name;
@@ -47,5 +58,13 @@ public class company {
 
     public List<jobs> getJob() {
         return job;
+    }
+
+    public Long getCompanyid() {
+        return companyid;
+    }
+
+    public void setCompanyid(Long companyid) {
+        this.companyid = companyid;
     }
 }

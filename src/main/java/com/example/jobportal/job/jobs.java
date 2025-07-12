@@ -1,5 +1,7 @@
 package com.example.jobportal.job;
 
+
+import com.example.jobportal.company.company;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +17,17 @@ public class jobs {
     private String minsalary;
     private String maxsalary;
     private String location;
+
+    public company getCompany() {
+        return Company;
+    }
+
+    public void setCompany(company company) {
+        Company = company;
+    }
+
+    @ManyToOne
+    private company Company;
 
     public jobs(Long id, String title, String description, String minsalary, String maxsalary, String location) {
         this.id = id;

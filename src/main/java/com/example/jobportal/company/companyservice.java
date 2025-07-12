@@ -9,4 +9,6 @@ public interface companyservice{
     boolean updatecompany(Long id, company company);
 
     void deleteCompany(Long id);
+
+    company findByCompanyid(Long id);
 }
