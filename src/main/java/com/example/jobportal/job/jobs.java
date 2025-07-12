@@ -8,6 +8,8 @@ public class jobs {
       @Id
       @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+    @Version
+    private int version;
     private String title;
     private String description;
     private String minsalary;

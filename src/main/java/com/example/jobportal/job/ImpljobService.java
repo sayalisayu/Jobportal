@@ -27,8 +27,8 @@ public class ImpljobService implements jobService {
     @Override
     public void createjob(jobs job) {
 
-        job.setId(NextId++);
-        jobRepository.save(job);
+        //job.setId(NextId++);
+       jobRepository.save(job);
 
 
     }
@@ -87,7 +87,7 @@ public class ImpljobService implements jobService {
             jobs2.setMinsalary(job.getMaxsalary());
             jobs2.setMaxsalary(job.getMinsalary());
             jobs2.setLocation(job.getLocation());
-
+             jobRepository.save(jobs2);
             return true;
         }
         return false;
