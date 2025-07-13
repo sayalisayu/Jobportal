@@ -10,6 +10,6 @@ public interface ReviewRepository extends JpaRepository<Reviews,Long>
 {
 
 
-
     List<Reviews> findByCompany_Companyid(Long companyid);
+    //List<Reviews> findByCompanyid(Long companyid);
 }

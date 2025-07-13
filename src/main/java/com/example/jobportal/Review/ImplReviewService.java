@@ -17,6 +17,7 @@ public class ImplReviewService implements ReviewService {
     @Override
     public List<Reviews> getAllReviews(Long companyId) {
         List<Reviews> review = reviewRepository.findByCompany_Companyid(companyId);
+
         return review;
     }
 
@@ -28,6 +29,48 @@ public class ImplReviewService implements ReviewService {
             reviewRepository.save(reviews);
             return true;
         }
-return false;
+        return false;
     }
+
+    @Override
+    public Reviews getReviews(Long companyId, Long reviewId) {
+
+        List<Reviews> reviews = reviewRepository.findByCompany_Companyid(companyId);
+        return reviews.stream().filter(Reviews -> Reviews.getId().equals(reviewId))
+                .findFirst().orElse(null);
+
+    }
+
+    @Override
+    public boolean updateReview(Long companyId, Long reviewId, Reviews updatedreviews) {
+        if(companyservice.findByCompanyid(companyId)!=null){
+            updatedreviews.setCompany(companyservice.findByCompanyid(companyId));
+            updatedreviews.setId(reviewId);
+            reviewRepository.save(updatedreviews);
+            return true;
+
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deletedReview(Long companyId, Long reviewId) {
+        if(companyservice.findByCompanyid(companyId)!=null &&
+        reviewRepository.existsById(reviewId)){
+         Reviews review=   reviewRepository.findById(reviewId).orElse(null);
+            assert review != null;
+            company Company = review.getCompany();
+         Company.getReviews().remove(review);
+         review.setCompany(null);
+            companyservice.updatecompany(companyId,Company);
+            reviewRepository.deleteById(reviewId);
+
+            return true;
+        }
+        return false;
+    }
+
+
 }
